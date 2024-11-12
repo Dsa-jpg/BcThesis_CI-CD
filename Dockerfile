@@ -1,5 +1,5 @@
 # Používáme oficiální Python obraz
-FROM python:3.9-slim
+FROM python:3.10-slim-buster
 
 # Nastavíme pracovní adresář
 WORKDIR /app
@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Spustíme aplikaci pomocí gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
+CMD ["python","app.py"]
