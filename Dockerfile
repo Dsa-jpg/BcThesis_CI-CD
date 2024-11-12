@@ -11,5 +11,5 @@ RUN pip install -r requirements.txt
 # Zkopírujeme zbytek aplikace
 COPY . .
 
-# Spustíme aplikaci pomocí gunicorn
+# Spustíme aplikaci
 CMD ["python","app.py"]
