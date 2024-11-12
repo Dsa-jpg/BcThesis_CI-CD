@@ -23,7 +23,7 @@ def get_weather(city="České Budějovice",
         weather_data = response.json()
 
         # Extracting data from json as current weather status (cloudy, windy, etc...) and temp in °C 
-        weather = weather_data["weather"][0]["destription"]
+        weather = weather_data["weather"][0]["description"]
         temp = weather_data["main"]["temp"]
 
         return f"Aktuální počasí: {weather}, teplota: {temp}°C."
