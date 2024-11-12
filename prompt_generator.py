@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-from .weather import get_weather
+from weather import get_weather
 from collections import deque
-from .config import WEATHER_API_KEY
+from config import WEATHER_API_KEY
 
 # The conversation history is stored in a deque with a maximum length of 3
 conversation_history = deque(maxlen=3)
