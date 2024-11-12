@@ -1,8 +1,8 @@
 from flask import  Flask, Response, jsonify, request
-from openai_api import get_openai_response
-from prompt_generator import dynamic_prompt_generator, add_to_history, dynamic_prompt_json
-from speech_recognition_handler import recognize_speech
-from config import UPLOAD_FOLDER
+from .openai_api import get_openai_response
+from .prompt_generator import dynamic_prompt_generator, add_to_history, dynamic_prompt_json
+from .speech_recognition_handler import recognize_speech
+from .config import UPLOAD_FOLDER
 import os
 
 
