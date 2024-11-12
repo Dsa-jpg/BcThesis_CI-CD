@@ -5,7 +5,7 @@ from speech_recognition_handler import recognize_speech
 from config import UPLOAD_FOLDER
 import os
 
-# Create a Blueprint object to define the routes
+
 app = Flask('app', __name__)
 
 @app.route('/response')
