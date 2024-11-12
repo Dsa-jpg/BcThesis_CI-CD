@@ -1,5 +1,5 @@
 import requests
-from config import WEATHER_API_KEY
+from .config import WEATHER_API_KEY
 #import logging
 
 
