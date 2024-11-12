@@ -2,7 +2,7 @@
 FROM python:3.10-slim-buster
 
 # Nastavíme pracovní adresář
-WORKDIR /app
+WORKDIR /application
 
 # Zkopírujeme požadavky a nainstalujeme závislosti
 COPY requirements.txt requirements.txt
