@@ -45,5 +45,5 @@ jobs:
           gcloud run deploy my-flask-app \
             --image $IMAGE_NAME \
             --platform managed \
-            --region us-central1 \
+            --region europe-west4 \
             --allow-unauthenticated
