@@ -46,4 +46,5 @@ jobs:
             --platform managed \
             --region $REGION \
             --allow-unauthenticated \
-            --timeout=300s
+            --timeout=300s \
+            --set-env-vars OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }},WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }}
