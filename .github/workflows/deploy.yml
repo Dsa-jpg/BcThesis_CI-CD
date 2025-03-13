@@ -9,7 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: europe-west4  # Zvol si region
   SERVICE_NAME: cicd  # Název služby
-  IMAGE_NAME: europe-west4-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cicd
+  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/cicd
 
 jobs:
   deploy:
