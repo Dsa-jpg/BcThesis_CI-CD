@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  REGION: europe-central4  # Zvol si region
+  REGION: europe-west4  # Zvol si region
   SERVICE_NAME: flask-app  # Název služby
   IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flask-app
 
