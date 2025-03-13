@@ -9,8 +9,8 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: europe-west4  # ✅ Nastavený region
   SERVICE_NAME: flask-app  # Název Cloud Run služby
-  REPO_NAME: flask-app  # Název Artifact Registry repozitáře
-  IMAGE_NAME: europe-west4-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/flask-app/flask-app
+  REPO_NAME: cicd  # Název Artifact Registry repozitáře
+  IMAGE_NAME: europe-west4-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cicd/flask-app
 
 jobs:
   deploy:
