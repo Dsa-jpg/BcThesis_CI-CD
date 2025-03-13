@@ -1,49 +1,48 @@
-name: Deploy to Google Cloud Run
+name: Deploy Flask App to Google Cloud Run
 
 on:
   push:
     branches:
-      - main  # Spustí CI/CD na každém pushi do hlavní větve
-  pull_request:
-    branches:
-      - main
+      - main  # Nebo jiná větev, podle potřeby
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: europe-central4  # Zvol si region
+  SERVICE_NAME: flask-app  # Název služby
+  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flask-app
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Check out the code
+      # Checkout repozitáře
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      # Nastavení Google Cloud autentizace
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
         with:
-          python-version: '3.10'
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Install dependencies
+      # Nastavení Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      # Sestavení a pushnutí Docker image
+      - name: Build and push Docker image
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Docker build and push
-        run: |
-          # Přihlásíme se do Google Cloud a nastavíme autentifikaci
-          echo ${{ secrets.GCP_SA_KEY }} | gcloud auth activate-service-account --key-file=-
-          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-
-          # Nastavíme proměnnou pro název Docker obrazu
-          IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-flask-app:latest
-
-          # Vytvoříme Docker obraz a nahrajeme na Container Registry
+          gcloud auth configure-docker
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
+      # Deploy na Cloud Run
       - name: Deploy to Cloud Run
         run: |
-          # Nasazení aplikace na Google Cloud Run
-          gcloud run deploy my-flask-app \
+          gcloud run deploy $SERVICE_NAME \
             --image $IMAGE_NAME \
             --platform managed \
-            --region europe-west4 \
-            --allow-unauthenticated
+            --region $REGION \
+            --allow-unauthenticated \
+            --port 8080
