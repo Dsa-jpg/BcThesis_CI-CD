@@ -49,4 +49,5 @@ jobs:
             --region $REGION \
             --allow-unauthenticated \
             --timeout=300s \
-            --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY,WEATHER_API_KEY=$WEATHER_API_KEY
+            --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY \
+            --set-env-vars WEATHER_API_KEY=$WEATHER_API_KEY \
