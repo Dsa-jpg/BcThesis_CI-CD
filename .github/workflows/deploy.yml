@@ -11,6 +11,8 @@ env:
   SERVICE_NAME: flask-app  # Název Cloud Run služby
   REPO_NAME: cicd  # Název Artifact Registry repozitáře
   IMAGE_NAME: europe-west4-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cicd/flask-app
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
 
 jobs:
   deploy:
@@ -47,4 +49,4 @@ jobs:
             --region $REGION \
             --allow-unauthenticated \
             --timeout=300s \
-            --set-env-vars OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }},WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }}
+            --set-env-vars OPENAI_API_KEY=$OPENAI_API_KEY,WEATHER_API_KEY=$WEATHER_API_KEY
