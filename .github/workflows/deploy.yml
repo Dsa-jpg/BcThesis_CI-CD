@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Check out the code
         uses: actions/checkout@v2
@@ -26,29 +26,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Authenticate with Google Cloud
+      - name: Docker build and push
         run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > gcp-key.json
-          gcloud auth activate-service-account --key-file=gcp-key.json
+          # Přihlásíme se do Google Cloud a nastavíme autentifikaci
+          echo ${{ secrets.GCP_SA_KEY }} | gcloud auth activate-service-account --key-file=-
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Configure Docker to use Google Artifact Registry
-        run: |
-          gcloud auth configure-docker gcr.io --quiet
-
-      - name: Build and Push Docker Image
-        run: |
+          # Nastavíme proměnnou pro název Docker obrazu
           IMAGE_NAME=gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-flask-app:latest
+
+          # Vytvoříme Docker obraz a nahrajeme na Container Registry
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       - name: Deploy to Cloud Run
         run: |
+          # Nasazení aplikace na Google Cloud Run
           gcloud run deploy my-flask-app \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-flask-app:latest \
+            --image $IMAGE_NAME \
             --platform managed \
             --region europe-west4 \
             --allow-unauthenticated
-
-      - name: Clean up
-        run: rm gcp-key.json
