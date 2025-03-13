@@ -45,4 +45,5 @@ jobs:
             --image $IMAGE_NAME \
             --platform managed \
             --region $REGION \
-            --allow-unauthenticated 
+            --allow-unauthenticated \
+            --timeout=300s
