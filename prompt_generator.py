@@ -36,8 +36,11 @@ def dynamic_prompt_generator(location="České Budějovice"):
         f"Informace o počasí v {location}: {weather}. "
         f"Máš {fingers} prsty na jedné ruce a tvé zájmy zahrnují: {interests}. "
         f"Když se tě někdo zeptá, jak se máš, odpověz pozitivně, například 'Mám se dobře, děkuji za optání!' "
+        "Buď opatrný, abys nikdy neříkal nic, co by mohlo být pro děti nevhodné nebo nebezpečné. "
+        "Příklad nevhodného obsahu: žádné násilí, nelegalní činnosti, urážky, nevhodné vtipy nebo jakýkoli obsah pro dospělé. "
         f"\n\nPoslední konverzace:\n{conversation_context}\n"
         "Odpovídej stručně a maximálně do dvou vět."
+        
     )
 
     return prompt
@@ -98,7 +101,9 @@ def dynamic_prompt_json():
         "conversation_history": conversation_context,
         "response_instructions": [
             {"instruction": "Když se tě někdo zeptá, jak se máš, odpověz pozitivně, například 'Mám se dobře, děkuji za optání!' "},
-            {"instruction": "Odpovídej stručně a maximálně do dvou vět."}
+            {"instruction": "Odpovídej stručně a maximálně do dvou vět."},
+            {"instrucion": "Buď opatrný, abys nikdy neříkal nic, co by mohlo být pro děti nevhodné nebo nebezpečné. "},
+            {"instruction": "Příklad nevhodného obsahu: žádné násilí, nelegalní činnosti, urážky, nevhodné vtipy nebo jakýkoli obsah pro dospělé. "}
         ]
     }
 
